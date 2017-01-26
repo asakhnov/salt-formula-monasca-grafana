@@ -1,0 +1,22 @@
+[Unit]
+Description=Starts and stops a single grafana instance on this system
+Documentation=http://docs.grafana.org
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=grafana
+Group=grafana
+Type=simple
+WorkingDirectory=/opt/grafana
+ExecStart=/opt/grafana/bin/grafana-server                           \
+                            --config=/opt/grafana/conf/defaults.ini \
+                            --pidfile=/var/run/grafana/grafana-server.pid \
+                            cfg:default.paths.logs=/var/log/grafana \
+                            cfg:default.paths.data=/opt/grafana/data
+LimitNOFILE=10000
+TimeoutStopSec=20
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

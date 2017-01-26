@@ -1,0 +1,17 @@
+{% set init_scripts = salt['grains.filter_by']({
+    'systemv': {
+      'monasca_grafana_service_script': 'grafana-server',
+      'init_dir': '/etc/init.d'
+    },
+    'systemd': {
+      'monasca_grafana_service_script': 'grafana-server.service',
+      'init_dir': '/lib/systemd/system'
+    },
+}, grain='init', merge=salt['pillar.get']('monasca-grafana:server')) %}
+
+{% set server = salt['grains.filter_by']({
+    'Debian': {
+      'pkgs': ['unzip', 'nodejs', 'nodejs-legacy', 'npm'],
+    },
+    'Redhat': {},
+}, merge=init_scripts) %}

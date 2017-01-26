@@ -1,0 +1,19 @@
+applications:
+- monasca-grafana
+classes:
+- service.monasca-grafana.support
+parameters:
+  monasca-grafana:
+    server:
+      enabled: True
+      secret: ${_param:monasca_grafana_secret}
+      database:
+        host: localhost
+        name: monasca_grafana
+        user: monasca_grafana
+        password: ${_param:mysql_monasca_grafana_password}
+      admin:
+        password: ${_param:monasca_grafana_admin_password}
+      keystone:
+        host: ${_param:single_address}
+        domain: default

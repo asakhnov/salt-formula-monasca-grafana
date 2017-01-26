@@ -1,0 +1,3 @@
+name: "monasca-grafana"
+version: "2017.1.1"
+source: "https://github.com/asakhnov/salt-formula-monasca-grafana"
